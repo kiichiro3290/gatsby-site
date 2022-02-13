@@ -51,8 +51,6 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-plugin-typegen`,
-    `gatsby-plugin-typescript`,
     // {
     //   resolve: `gatsby-plugin-google-analytics`,
     //   options: {
@@ -127,6 +125,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-typegen`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
