@@ -10,8 +10,15 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-const Seo = ({ description, lang, meta, title }) => {
-  const { site } = useStaticQuery(
+type SeoProps = {
+  description?: string;
+  lang?: string;
+  meta?: HTMLMetaElement[];
+  title: string;
+}
+
+const Seo: React.FC<SeoProps> = ({ description, lang, meta, title }) => {
+  const { site } = useStaticQuery<GatsbyTypes.Query>(
     graphql`
       query {
         site {
@@ -27,8 +34,8 @@ const Seo = ({ description, lang, meta, title }) => {
     `
   )
 
-  const metaDescription = description || site.siteMetadata.description
-  const defaultTitle = site.siteMetadata?.title
+  const metaDescription = description || site?.siteMetadata?.description
+  const defaultTitle = site?.siteMetadata?.title
 
   return (
     <Helmet
@@ -36,7 +43,7 @@ const Seo = ({ description, lang, meta, title }) => {
         lang,
       }}
       title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : undefined}
       meta={[
         {
           name: `description`,
@@ -60,7 +67,7 @@ const Seo = ({ description, lang, meta, title }) => {
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata?.social?.twitter || ``,
+          content: site?.siteMetadata?.social?.twitter || ``,
         },
         {
           name: `twitter:title`,
@@ -70,7 +77,7 @@ const Seo = ({ description, lang, meta, title }) => {
           name: `twitter:description`,
           content: metaDescription,
         },
-      ].concat(meta)}
+      ].concat(meta as HTMLMetaElement[])}
     />
   )
 }
@@ -84,7 +91,7 @@ Seo.defaultProps = {
 Seo.propTypes = {
   description: PropTypes.string,
   lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
+  meta: PropTypes.array,
   title: PropTypes.string.isRequired,
 }
 

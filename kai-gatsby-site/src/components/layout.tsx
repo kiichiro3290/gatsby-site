@@ -1,9 +1,11 @@
 import * as React from "react"
 import { Link } from "gatsby"
+import { WindowLocation } from "@reach/router"
 
-const Layout = ({ location, title, children }) => {
-  const rootPath = `${__PATH_PREFIX__}/`
-  const isRootPath = location.pathname === rootPath
+const Layout: React.FC<{ title: string } & { location: WindowLocation<unknown> }>= ({ location, title, children }) => {
+  // const rootPath = `${__PATH_PREFIX__}/`
+  // const isRootPath = location.pathname === rootPath
+  const isRootPath = location.pathname
   let header
 
   if (isRootPath) {
