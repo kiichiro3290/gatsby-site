@@ -1,9 +1,9 @@
 // If you don't want to use TypeScript you can delete this file!
-import * as React from "react"
-import { PageProps, Link, graphql } from "gatsby"
+import * as React from 'react'
+import { PageProps, Link, graphql } from 'gatsby'
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Layout from '../components/layout'
+import Seo from '../components/seo'
 
 type DataProps = {
   site: {
@@ -16,8 +16,8 @@ const UsingTypescript: React.FC<PageProps<DataProps>> = ({
   path,
   location,
 }) => (
-  <Layout title="Using TypeScript" location={location}>
-    <Seo title="Using TypeScript" />
+  <Layout title='Using TypeScript' location={location}>
+    <Seo title='Using TypeScript' />
     <h1>Gatsby supports TypeScript by default!</h1>
     <p>
       This means that you can create and write <em>.ts/.tsx</em> files for your
@@ -29,17 +29,17 @@ const UsingTypescript: React.FC<PageProps<DataProps>> = ({
       run <em>tsc --init</em> to create a <em>tsconfig</em> file.
     </p>
     <p>
-      You're currently on the page "{path}" which was built on{" "}
+      You're currently on the page "{path}" which was built on{' '}
       {data.site.buildTime}.
     </p>
     <p>
-      To learn more, head over to our{" "}
-      <a href="https://www.gatsbyjs.com/docs/typescript/">
+      To learn more, head over to our{' '}
+      <a href='https://www.gatsbyjs.com/docs/typescript/'>
         documentation about TypeScript
       </a>
       .
     </p>
-    <Link to="/">Go back to the homepage</Link>
+    <Link to='/'>Go back to the homepage</Link>
   </Layout>
 )
 

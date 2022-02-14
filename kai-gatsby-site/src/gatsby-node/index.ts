@@ -1,21 +1,28 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
-import { GatsbyNode } from "gatsby"
+import { GatsbyNode } from 'gatsby'
 
-export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions, reporter }) => {
+export const createPages: GatsbyNode['createPages'] = async ({
+  graphql,
+  actions,
+  reporter,
+}) => {
   const { createPage } = actions
 
   // Define a template for blog post
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
 
   // Get all markdown blog posts sorted by date
-  const result = await graphql<{ allMarkdownRemark: Pick<GatsbyTypes.Query["allMarkdownRemark"], 'nodes'> }>(
+  const result = await graphql<{
+    allMarkdownRemark: Pick<GatsbyTypes.Query['allMarkdownRemark'], 'nodes'>
+  }>(
     `
       {
         allMarkdownRemark(
           sort: { fields: [frontmatter___date], order: ASC }
           limit: 1000
-        ) {npm 
+        ) {
+          npm
           nodes {
             id
             fields {
@@ -35,7 +42,8 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions,
     return
   }
 
-  const posts = result.data !== undefined ? result.data.allMarkdownRemark.nodes : [];
+  const posts =
+    result.data !== undefined ? result.data.allMarkdownRemark.nodes : []
 
   // Create blog posts pages
   // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
@@ -59,7 +67,11 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions,
   }
 }
 
-export const onCreateNode: GatsbyNode["onCreateNode"] = ({ node, actions, getNode }) => {
+export const onCreateNode: GatsbyNode['onCreateNode'] = ({
+  node,
+  actions,
+  getNode,
+}) => {
   const { createNodeField } = actions
 
   if (node.internal.type === `MarkdownRemark`) {
@@ -73,16 +85,17 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = ({ node, actions, getNod
   }
 }
 
-export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] = ({ actions }) => {
-  const { createTypes } = actions
+export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] =
+  ({ actions }) => {
+    const { createTypes } = actions
 
-  // Explicitly define the siteMetadata {} object
-  // This way those will always be defined even if removed from gatsby-config.js
+    // Explicitly define the siteMetadata {} object
+    // This way those will always be defined even if removed from gatsby-config.js
 
-  // Also explicitly define the Markdown frontmatter
-  // This way the "MarkdownRemark" queries will return `null` even when no
-  // blog posts are stored inside "content/blog" instead of returning an error
-  createTypes(`
+    // Also explicitly define the Markdown frontmatter
+    // This way the "MarkdownRemark" queries will return `null` even when no
+    // blog posts are stored inside "content/blog" instead of returning an error
+    createTypes(`
     type SiteSiteMetadata {
       author: Author
       siteUrl: String
@@ -113,4 +126,4 @@ export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] 
       slug: String
     }
   `)
-}
+  }
